@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cycles</title>
+    <link rel="stylesheet" href="{% static 'css/bicycle.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="navbar">
+    <div class="wrapper">
+        <div id="logo">
+            <h1>TRYCYCLE</h1>
+        </div>
+        <div class="header">
+            <ul id="box">
+                <li><a href="{% url 'basicapp:index' %}"> Home</a></li>
+                <!-- <li>Discounts</li> -->
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="flex-container">
+    <div>
+        <div class="image">
+            <img src="{% static 'images/Hercules-Roadeo-A50-removebg-preview (1).png' %}" alt="">
+        </div>    
+        <div class="desc">
+            <h3>ROAD</h3>
+            <p>If you are looking to make a statement with your bike, this cycle will certainly get you the attention. The bicycle looks really nice and premium. The decals used are bright and modern looking.
+            </p>
+        </div>   
+    </div>
+    <div>
+        <div class="image">
+            <img src="{% static 'images/Hercules-Roadeo-Hardliner-Best-Bicycles-in-India-under-10000-removebg-preview.png' %}" alt="">
+        </div>    
+        <div class="desc">
+            <h3>HYBRID</h3>
+            <p>Hardliner is made using aluminium alloy frame. The bicycle is equipped with 18 gears to help you conquer multiple different types of terrains. The frame size for this model is 18.5 Inches, which is ideal for average Indian cyclist.
+            </p>
+        </div>   
+    </div>
+    <div>
+        <div class="image">
+            <img src="{% static 'images/Hero-Traveller-700C-Review-Best-Cycle-under-Rs.-10000-removebg-preview.png' %}" alt="">
+        </div>    
+        <div class="desc">
+            <h3>COMMUTER</h3>
+            <p>A beautiful looking single speed bicycle. It is a hybrid bike with 700c (thin tyres). A perfect buy for someone who is looking for an inexpensive but fast bicycle to commute.
+            </p>
+        </div>   
+    </div>
+    <div>
+        <div class="image">
+            <img src="{% static 'images/Huffy-Granite-Bicycle-Review-e1552987782860-removebg-preview.png' %}" alt="">
+        </div>    
+        <div class="desc">
+            <h3>MOUNTAIN</h3>
+            <p>This model has a lot in common with the Hero bicycle I discussed above. This bike also comes with a rigid frame, no gears or disc brakes. The only major difference between the two is the tyres. Huffy Granite comes with a regular pair.
+            </p>
+        </div>   
+    </div>
+    <div>
+        <div class="image">
+            <img src="{% static 'images/MACH-CITY-IBIKE-Best-cycle-price-below-10000-india-removebg-preview (1).png' %}" alt="">
+        </div>    
+        <div class="desc">
+            <h3>BMX</h3>
+            <p>This cycle is all bright and colourful. The kids just love it. It has everything that the kids would need. Dual suspension for their rough riding.
+            </p>
+        </div>   
+    </div>
+    <div>
+        <div class="image">
+            <img src="{% static 'images/fd-removebg-preview.png' %}" alt="">
+        </div>    
+        <div class="desc">
+            <h3>TRACK</h3>
+            <p>A beautiful looking single speed bicycle. It is a hybrid bike with 700c (thin tyres). A perfect buy for someone who is looking for an inexpensive but fast bicycle to commute.
+            </p>
+        </div>   
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,342 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TryCycle</title>
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+
+</head>
+<body>
+
+<div>
+         {% include 'messages.html' %}
+         {% block content %} {% endblock content %}
+</div>
+
+
+<!-- nav-bar-->
+<div class="nav">
+    <input type="checkbox" id="nav-check">
+    <div class="nav-header">
+      <div class="nav-title">
+        <h1 style="font-weight:900">TRYCYCLE<h1>
+      </div>
+    </div>
+    <div class="nav-btn">
+      <label for="nav-check">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    <div class="nav-links">
+      <a href="">Home</a>
+      <a href="#aboutus">About Us</a>
+      <a href="#feature">Features</a>
+      <a href="#check">Checkpoints</a>
+      <!-- <a id="contact" style="cursor: pointer;">Contact us</a> -->
+      <a href="bicycle" target="_blank">Cycle</a>
+      <!-- <a href="">Discounts</a> -->
+      {% if user.is_authenticated %}
+            <a href="logout">Logout</a>
+      {% endif %}
+    </div>
+</div>
+
+
+<!-- Company Intro-->
+<div class="container-1">
+    <div class="area1">
+        <div class="intro">
+            {% if user.is_authenticated %}
+            <h1 style="margin-bottom: 20px;">Hello, {{user.first_name}}</h1>
+            <hr style=" width: 75%; margin-bottom: 20px;height:2.5px" color="#f7d09d">
+            {% endif %}
+            <h1>Rent<br>Ride<br>Commute.</h1>
+            <p style="font-family:poppins">Made with ❤️ for VITians </p>
+            {% if user.is_authenticated %}
+            <div class="butt1">
+                <a href="#" id="button2" class="y">Book Now</a>
+                <a href="mybookings" id="button3" class="button">My Bookings</a>
+            </div>
+            {% else %}
+           <div class="butt">
+                <a href="#" id="button" class="button">SignIn</a>
+                <a href="#" id="button1" class="button">SignUp</a>
+            </div>
+            {% endif %}
+        </div>
+        <a name="aboutus" ></a>
+    </div>
+
+    <div class="area2">
+        <img src="{% static 'images/tt.svg' %}" alt="">
+    </div>
+</div>
+<div class="bg-modal">
+    <div class="modal-contents">
+        <img src="{% static 'images/login.jpg' %}" alt="">
+        <div class="close">+</div>
+<!--signin-->
+        <form action="login" method="POST">
+            {% csrf_token %}
+            <input type="text" placeholder="Username" name='username'>
+            <input type="password" placeholder="Password" name='password'>
+            <button href="#" id="button" class="button" type="submit">Submit</button>
+        </form>
+
+    </div>
+</div>
+<!--signup-->
+<div class="bg-modal1">
+    <div class="modal-contents1">
+        <div class="close1">+</div>
+        <h1>Sign Up</h1>
+        <form action="register" method="POST">
+            {% csrf_token %}
+            <input type="text" placeholder="Username" name="username">
+            <input type="text" placeholder="First Name" name="first_name">
+            <input type="text" placeholder="Last Name" name="last_name">
+            <input type="text"placeholder="Phone No" name="phone_no">
+            <!-- <input type="text" placeholder="Block & Room No." name="room_no">
+            <input type="text" placeholder="Reg. no" name="reg_no"> -->
+            <input type="e-mail" placeholder="E-mail" name="email">
+            <input type="password" placeholder="Password" name="password1">
+            <input type="password" placeholder="Confirm-password" name="password2">
+            <button href="#" id="button" class="button" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+<div class="bg-modal3">
+    <div class="modal-contents3">
+        <div class="close3">+</div>
+        <h1>Get In Touch</h1>
+        <form action="register" method="POST">
+            {% csrf_token %}
+            <input type="text" placeholder="Name" name="name">
+            <input type="text" placeholder="E-mail" name="email">
+            <input type="text" placeholder="Subject" name="subject">
+            <textarea type="text"placeholder="Text" name="feed"></textarea>
+            <button href="#" id="button" class="button" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+{% if user.is_authenticated %}
+<div class="bg-modal2">
+    
+    <div class="modal-contents2">
+        <div class="close2">+</div>
+        <form action="rent_now" method="POST">
+
+            {% csrf_token %}
+<!--         <img src="{% static 'images/e201fecab309152d4fc871c3cd97fb6d.gif' %}" style="width: 350px; border-radius:20px; margin-bottom:20px"> -->
+        <input type="date" placeholder="DD/MM/YYYY" class="form-control" name="date" >
+        <select class="select" name="check" >
+            {% if location %}
+            <option selected disabled >Start Point</option>
+            {% for loc in location %}
+            <option>{{ loc.name }}</option>
+            {% endfor %}
+            {% endif %}
+        </select>
+        <select class="form-control" name='end' style="cursor: pointer;">
+            {% if location %}
+            <option selected disabled >End Point</option>
+            {% for loc in location %}
+            <option>{{ loc.name }}</option>
+            {% endfor %}
+            {% endif %}
+        </select>
+        <select class="form-control" name='cat' style="cursor: pointer;">
+            {% if cycle_category %}
+            <option selected disabled >Cycle Category</option>
+            {% for cycle_cat in cycle_category%}
+            <option>{{ cycle_cat.name }}</option>
+            {% endfor %}
+            {% endif %}
+        </select>
+        <select class="select" name="acc" >
+            {% if cycle_accessories %}
+            <option selected disabled >Accessory(optional)</option>
+            {% for acc in cycle_accessories %}
+            <option>{{ acc.name }}</option>
+            {% endfor %}
+            {% endif %}
+        </select>
+       
+        <select class="select" name="disc" >
+            {% if discount %}
+            <option selected disabled >Discount(optional)</option>
+            {% for disc in discount %}
+            <option>{{ disc.name }}</option>
+            {% endfor %} 
+            {% endif %}       
+        </select>
+        
+        <select class="select" name="ins" >
+            {% if insurance %}
+            <option selected disabled >Insurance(optional)</option>
+            {% for ins in insurance %}
+            <option>{{ ins.name }}</option>
+            {% endfor %} 
+            {% endif %}
+        </select>
+        <input type="time" placeholder="pickup hrs:min" class="form-control" name="st">
+        <input type="time" placeholder="pickup hrs:min" class="form-control" name="et">
+        <button href="#" id="button" class="button" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+{% endif %}
+<!-- About us-->
+<div class="focus-feature" style="background: white;">
+    <div class="about_us">
+        <div class="heading">
+            <h1 id="line">ABOUT US</h1>
+        </div>
+        <p>We bring before you a healthy way to travel , so even if you wake up late for a class, you can rely on us to get there in time</p>
+        <div class="features">
+            <div id="heading1">
+            <h1>Why us?</h1>
+            <p>Existing travel facility,i.e shuttle is expensive and is usually crowded, we use a special algorithm to compute the cost.</p>
+            </div>
+            <div id="heading1">
+                <h1>It's Better</h1>
+                <p>This plan will also contribute to the betterment of the environment becaue The Earth is what we all have in common.</p>
+            </div>
+            <div id="heading1">
+                <h1>Save Nature</h1>
+                <p>Sitting infront of laptops and barely doing any physical excercise, it will also help build your health.</p>
+            <a name="feature"></a>
+            </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Features -->
+
+<div class="focus-feature">
+    <div class="about_us">
+        <div class="heading">
+            <h1 id="line">FEATURES</h1>
+        </div>
+        <p>We present before you all the amenities we will be providing you!!</p>
+        <div class="features">
+
+            <div id="heading1">
+            <h1>Economical</h1>
+            <p>We use a special algorithm, to compute cost which is far more less than the shuttle pricing, existing nowdays.</p>
+            </div>
+            <div id="heading1">
+                <h1>Eco-friendly</h1>
+                <p>This plan will also contribute to the betterment of the environment becaue The Earth is what we all have in common.</p>
+            </div>
+            <div id="heading1">
+                <h1>Healthy</h1>
+                <p>Sitting infront of laptops and barely doing any physical excercise, it will also help build your health.</p>
+            </div>
+            <div id="heading1">
+                <h1>Instant Booking</h1>
+                <p>All you need to do is visit our website, login and rent a bicycle and within minutes you are ready.</p>
+            </div>
+            <div id="heading1">
+                <h1>Checkpoints</h1>
+                <p>We know how widespread our campus is, so to keep up we have made few places our pickup and drop points.</p>
+            </div>
+            <div id="heading1">
+                <h1>Flexible Timings</h1>
+                <p>Worry not if your FFCS went wrong,you will always be provided with a bicycle.</p><a name="check"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="focus">
+    <h1 style="font-family:poppins" >CHECKPOINTS</h1>
+    <br>
+    <img src="{% static 'images/map.png' %}" alt="" style="max-width: 100%; border-radius:25px">
+
+</div>
+<div class="devlopers">
+    <div class="focus">
+        <div class="about_us">
+            <div class="heading">
+                <h1 id="line">DEVELOPERS</h1>
+            </div>
+            <div class="photo">
+                <div id="photo-div">
+                    <!-- <img src="{% static 'images/dp/28165154_2012421198830171_9221532959698386938_o.jpg' %}" alt=""> -->
+                    <h1 style="font-family:poppins">Aryan Jain</h1>
+                    <p style="margin-top: 15px;">Co-Founder</p>
+                </div>
+                <div id="photo-div">
+                    <!-- <img src="{% static 'images/dp/khush.png' %}" alt=""> -->
+                    <h1 style="font-family:poppins">Apoorva Chawda</h1>
+                    <p style="margin-top: 15px;">Co-Founder</p>
+                </div>
+                <div id="photo-div">
+                   <!--  <img src="{% static 'images/dp/khush.png' %}" alt=""> -->
+                    <h1 style="font-family:poppins">Parth Shah</h1>
+                    <p style="margin-top: 15px;">Co-Founder</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+<script>
+document.getElementById('button').addEventListener("click", function() {
+	document.querySelector('.bg-modal').style.display = "flex";
+});
+
+document.querySelector('.close').addEventListener("click", function() {
+	document.querySelector('.bg-modal').style.display = "none";
+});
+document.getElementById('button1').addEventListener("click", function() {
+    document.querySelector('.bg-modal1').style.display = "flex";
+
+});
+document.querySelector('.close1').addEventListener("click", function() {
+	document.querySelector('.bg-modal1').style.display = "none";
+});
+document.getElementById('contact').addEventListener("click", function() {
+    document.querySelector('.bg-modal3').style.display = "flex";
+
+});
+document.querySelector('.close3').addEventListener("click", function() {
+	document.querySelector('.bg-modal3').style.display = "none";
+});
+</script>
+{% if user.is_authenticated %}
+<script>
+
+document.getElementById('button2').addEventListener("click", function() {
+	document.querySelector('.bg-modal2').style.display = "flex";
+});
+document.querySelector('.close2').addEventListener("click", function() {
+	document.querySelector('.bg-modal2').style.display = "none";
+});
+
+</script>
+{% endif %}
+
+<script type="text/javascript">
+    setTimeout(function(){
+        if(document.getElementById('msg').length > 0)
+        {
+            document.getElementById('msg').remove();   
+        }
+    }, 2000)
+</script>
+
+<!-- Modal -->
+
+</body>
+</html>
